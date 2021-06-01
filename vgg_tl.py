@@ -23,6 +23,7 @@ root_dir = '/home/praphul/pytorch/vgg16/P1_Facial_Keypoints/data/training/'
 img_paths = glob.glob(os.path.join(root_dir, '*.jpg'))
 data = pd.read_csv('/home/praphul/pytorch/vgg16/P1_Facial_Keypoints/data/training_frames_keypoints.csv')
 # print(data.iloc[5,1:])
+#download data: git clone https://github.com/udacity/P1_Facial_Keypoints.git
 
 def show_landmarks(image, landmarks):
     plt.imshow(image)
