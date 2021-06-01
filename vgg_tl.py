@@ -24,26 +24,11 @@ img_paths = glob.glob(os.path.join(root_dir, '*.jpg'))
 data = pd.read_csv('/home/praphul/pytorch/vgg16/P1_Facial_Keypoints/data/training_frames_keypoints.csv')
 # print(data.iloc[5,1:])
 
-
-# n = 65
-# image_name = data.iloc[n, 0]
-# landmarks = data.iloc[n,1:]
-# landmarks = np.asarray(landmarks)
-# landmarks = landmarks.astype(float).reshape(-1,2)
-
-# print('Image name: {}'.format(image_name))
-# print('Landmarks shape: {}'.format(landmarks.shape))
-# print('First 4 Landmarks: {}'.format(landmarks[:4]))
-
-
 def show_landmarks(image, landmarks):
     plt.imshow(image)
     plt.scatter(landmarks[:,0], landmarks[:,1], s=10, marker='*', c='r')
     plt.pause(0.001)
 
-# plt.figure()
-# show_landmarks(io.imread(os.path.join('/home/praphul/pytorch/vgg16/P1_Facial_Keypoints/data/training/', image_name)),landmarks)
-# plt.show()
 class Faces(Dataset):
     def __init__(self, df):
         self.df = df
@@ -103,7 +88,7 @@ def get_model():
                                         nn.Linear(512, 136),
                                         nn.Sigmoid()
                                     )
-    criterion = nn.L1Loss()
+    criterion = nn.L1Loss() #mean absolute error
     optimizer = torch.optim.Adam(model.parameters(),lr=1e-4)
     return model.to(device), criterion, optimizer          
 
@@ -145,16 +130,12 @@ for epoch in range(epochs):
     test_loss.append(epoch_test_loss)    
 
 epochs = np.arange(30)+1
-import matplotlib.ticker as mtick
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
 
-# plt.plot(epochs, train_loss, 'bo', label='training_loss')
-# plt.plot(epochs,test_loss, 'r', label='test_loss')
-# plt.title('training and test loss')
-
-# plt.xlabel('epochs')
-# plt.ylabel('loss')
-# plt.legend()
-# plt.grid('off')
-# plt.show()
+plt.plot(epochs, train_loss, 'bo', label='training_loss')
+plt.plot(epochs,test_loss, 'r', label='test_loss')
+plt.title('training and test loss')
+plt.xlabel('epochs')
+plt.ylabel('loss')
+plt.legend()
+plt.grid('off')
+plt.show()
