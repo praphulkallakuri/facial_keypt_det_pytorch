@@ -1,1 +1,1 @@
-# facial_keypt_det_pytorch
+# facial_key_point_det_pytorch
